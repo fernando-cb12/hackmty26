@@ -5,3 +5,5 @@ audio/
 audio
 TeamStructure.md
 models/
+venv/
+.ai/

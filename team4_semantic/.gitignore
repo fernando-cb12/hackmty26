@@ -1,0 +1,5 @@
+cache/
+model/*.joblib
+model/validation_predictions.csv
+__pycache__/
+.venv/
