@@ -11,5 +11,8 @@ __pycache__/
 # Local diagnostic audio and large regenerable reports from Model 3.
 team3_behavior/development/artifacts/reports/*.wav
 team3_behavior/development/artifacts/reports/*_diagnosis.json
+
+# Contains a complete WAV encoded as base64; generate locally for Postman.
+postman/*.generated.postman_environment.json
 venv/
 .ai/

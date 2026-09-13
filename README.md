@@ -78,7 +78,12 @@ python scripts/check_endpoint.py --url http://localhost:8000/detect --split val 
 python scripts/example_server.py --port 8000
 ```
 
-Both scripts need only the Python standard library and the unzipped `audio/` folder.
+`check_endpoint.py` needs only the Python standard library and the unzipped
+`audio/` folder. The live example server uses the model dependencies documented
+in [`INTEGRATION_HANDOFF.md`](INTEGRATION_HANDOFF.md).
+
+A ready-to-import Postman collection, real-WAV environment generator, response
+assertions, and protocol rejection tests are available in [`postman/`](postman/README.md).
 
 ## Terms
 
