@@ -107,6 +107,54 @@ def main():
         y_prob >= THRESHOLD
     ).astype(int)
 
+    print("\n=== MISCLASSIFIED CALLS ===")
+
+    errors = 0
+
+    for call_id, true_label, probability, prediction in zip(
+        sorted(call_probabilities),
+        y_true,
+        y_prob,
+        y_pred,
+    ):
+        if prediction != true_label:
+
+            errors += 1
+
+            print(
+                f"{call_id} | "
+                f"true={true_label} | "
+                f"pred={prediction} | "
+                f"p_synthetic={probability:.4f}"
+            )
+
+    if errors == 0:
+        print("No misclassified calls.")
+
+    print("\n=== HARDEST CALLS ===")
+
+    margins = np.abs(
+        y_prob - THRESHOLD
+    )
+
+    hardest_indices = np.argsort(
+        margins
+    )[:10]
+
+    call_ids = sorted(
+        call_probabilities
+    )
+
+    for index in hardest_indices:
+
+        print(
+            f"{call_ids[index]} | "
+            f"true={y_true[index]} | "
+            f"pred={y_pred[index]} | "
+            f"p_synthetic={y_prob[index]:.4f} | "
+            f"margin={margins[index]:.4f}"
+        )
+
     print("\n=== CALL-LEVEL METRICS ===")
 
     print(
