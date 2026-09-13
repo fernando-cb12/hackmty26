@@ -4,7 +4,8 @@ audio/
 .venv/
 __pycache__/
 *.py[cod]
-
 # Local diagnostic audio and large regenerable reports from Model 3.
 team3_behavior/development/artifacts/reports/*.wav
 team3_behavior/development/artifacts/reports/*_diagnosis.json
+venv/
+.ai/

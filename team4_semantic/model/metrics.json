@@ -1,0 +1,35 @@
+{
+  "model": "average",
+  "train_oof_roc_auc": {
+    "features": 0.973032413468084,
+    "text": 0.96659161124784,
+    "average": 0.983243441378227
+  },
+  "validation": {
+    "threshold": 0.4650000000000001,
+    "accuracy": 0.971830985915493,
+    "precision": 0.9444444444444444,
+    "recall": 1.0,
+    "f1": 0.9714285714285714,
+    "roc_auc": 0.9960254372019078,
+    "brier": 0.047788045267553016,
+    "confusion_matrix": [
+      [
+        35,
+        2
+      ],
+      [
+        0,
+        34
+      ]
+    ],
+    "false_positives": [
+      "call_6971b2685c1d",
+      "call_9a3d5b0a64a3"
+    ],
+    "false_negatives": []
+  },
+  "validation_transcription_and_inference_seconds": 889.5111680400005,
+  "validation_mean_seconds_per_call": 12.528326310422543,
+  "training_and_validation_seconds": 4256.088069960999
+}
