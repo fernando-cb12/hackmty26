@@ -1,6 +1,10 @@
 audio/
 *.zip
 .DS_Store
+.venv
+audio
+TeamStructure.md
+models/
 .venv/
 __pycache__/
 *.py[cod]
