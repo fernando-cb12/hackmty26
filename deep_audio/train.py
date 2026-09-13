@@ -29,7 +29,7 @@ EPOCHS = 10
 MODEL_DIR = Path("models")
 MODEL_DIR.mkdir(exist_ok=True)
 
-MODEL_PATH = MODEL_DIR / "deep_audio_cnn.pt"
+MODEL_PATH = MODEL_DIR / "deep_audio_cnn_peaknorm.pt"
 
 
 # --------------------------------------------------
@@ -319,4 +319,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    

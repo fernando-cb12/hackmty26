@@ -3,6 +3,12 @@ from pathlib import Path
 
 import torch
 from torch.utils.data import Dataset
+from deep_audio.preprocessing import (
+    load_caller_audio,
+    segment_audio,
+    audio_to_log_mel,
+    peak_normalize,
+)
 
 from deep_audio.preprocessing import (
     load_caller_audio,
@@ -128,6 +134,8 @@ class DeepAudioDataset(Dataset):
         segment = segments[
             sample["segment_index"]
         ]
+
+        segment = peak_normalize(segment)
 
         log_mel = audio_to_log_mel(
             segment,

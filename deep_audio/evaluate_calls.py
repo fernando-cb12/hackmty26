@@ -15,8 +15,7 @@ from sklearn.metrics import (
 from deep_audio.dataset import DeepAudioDataset
 from deep_audio.model import DeepAudioCNN
 
-
-MODEL_PATH = "models/deep_audio_cnn.pt"
+MODEL_PATH = "models/deep_audio_cnn_peaknorm.pt"
 THRESHOLD = 0.5
 
 

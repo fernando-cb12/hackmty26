@@ -149,6 +149,14 @@ def audio_to_log_mel(
 
     return log_mel.astype(np.float32)
 
+def peak_normalize(audio, eps=1e-8):
+    peak = np.max(np.abs(audio))
+
+    if peak < eps:
+        return audio
+
+    return audio / peak
+
 
 if __name__ == "__main__":
 
