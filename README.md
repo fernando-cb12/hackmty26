@@ -13,6 +13,15 @@ Your task: given a call, decide whether the caller is human or synthetic.
 | `audio/<anon_id>.wav` | Stereo, 8 kHz, 16-bit PCM. Channel 0 is the caller (the one you classify). Channel 1 is the agent. |
 | `turns/<anon_id>.json` | Speech segments per channel, `{"turns": [{"channel": 0, "start": 12.4, "end": 15.1}, ...]}`, seconds from the start of the file. Derived automatically from the audio; use them as a starting point. |
 
+## Team models
+
+| Path | Model |
+| --- | --- |
+| `team3_behavior/` | Model 3: conversational timing, pauses, interruptions, overlap, energy VAD, and trained classifier. |
+
+Each model must read the shared `audio/`, `manifest.csv`, and `turns/` paths
+from the repository root instead of keeping its own copy of the dataset.
+
 Audio is distributed as `altur-challenge-audio.zip` (see Releases). Unzip it in the repo root so the files land in `audio/`.
 
 ## The conversation
