@@ -1,3 +1,7 @@
 audio/
 *.zip
 .DS_Store
+.venv
+audio
+TeamStructure.md
+models/
