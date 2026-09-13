@@ -7,6 +7,7 @@ annotations prevent long conversational silences from dominating voice features.
 from __future__ import annotations
 
 import argparse
+import io
 import json
 from pathlib import Path
 from typing import Iterable
@@ -38,6 +39,14 @@ def load_caller_audio(wav_path: str | Path) -> tuple[np.ndarray, int]:
     audio, sample_rate = sf.read(wav_path, dtype="float32", always_2d=True)
     if audio.shape[1] != 2:
         raise ValueError(f"Expected stereo WAV, received shape {audio.shape} from {wav_path}")
+    return audio[:, 0], sample_rate
+
+
+def load_caller_audio_bytes(wav_bytes: bytes) -> tuple[np.ndarray, int]:
+    """Load the caller channel from in-memory judge WAV bytes."""
+    audio, sample_rate = sf.read(io.BytesIO(wav_bytes), dtype="float32", always_2d=True)
+    if audio.shape[1] != 2:
+        raise ValueError(f"Expected stereo WAV, received shape {audio.shape} from byte payload")
     return audio[:, 0], sample_rate
 
 def load_caller_turns(turns_path: str | Path, sample_rate: int, n_samples: int) -> list[tuple[int, int]]:
@@ -109,6 +118,24 @@ def extract_features(caller_audio: np.ndarray, sample_rate: int, clips: Iterable
 def extract_call_features(wav_path: str | Path, turns_path: str | Path | None = None) -> dict[str, float]:
     caller, sample_rate = load_caller_audio(wav_path)
     clips = load_caller_turns(turns_path, sample_rate, len(caller)) if turns_path else None
+    return extract_features(caller, sample_rate, clips)
+
+
+def clips_from_turns(turns: Iterable[dict], sample_rate: int, n_samples: int) -> list[tuple[int, int]]:
+    clips = []
+    for turn in turns:
+        if turn.get("channel") != 0 or turn["end"] - turn["start"] < 0.15:
+            continue
+        start = max(0, int(round(turn["start"] * sample_rate)))
+        end = min(n_samples, int(round(turn["end"] * sample_rate)))
+        if end - start >= int(0.15 * sample_rate):
+            clips.append((start, end))
+    return clips
+
+
+def extract_call_features_from_bytes(wav_bytes: bytes, turns: Iterable[dict] | None = None) -> dict[str, float]:
+    caller, sample_rate = load_caller_audio_bytes(wav_bytes)
+    clips = clips_from_turns(turns, sample_rate, len(caller)) if turns is not None else None
     return extract_features(caller, sample_rate, clips)
 
 

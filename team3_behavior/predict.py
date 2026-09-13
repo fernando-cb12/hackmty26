@@ -89,6 +89,17 @@ def predict_wav(path: Path, model_path: Path = DEFAULT_MODEL) -> dict:
     return _build_result(turns, diagnostics, model, started)
 
 
+def predict_from_turns(
+    turns: list[dict],
+    diagnostics: dict,
+    model_path: Path = DEFAULT_MODEL,
+    started: float | None = None,
+) -> dict:
+    """Score already-detected VAD turns so integrations can reuse one VAD pass."""
+    model = load_model(model_path)
+    return _build_result(turns, diagnostics, model, started or time.perf_counter())
+
+
 def predict_wav_bytes(payload: bytes, model_path: Path = DEFAULT_MODEL) -> dict:
     """Entry point intended for the future HTTP /detect integration."""
     started = time.perf_counter()

@@ -1,4 +1,5 @@
 from pathlib import Path
+import io
 
 import librosa
 import numpy as np
@@ -42,6 +43,33 @@ def load_caller_audio(audio_path):
         raise ValueError(
             f"Expected stereo audio, got "
             f"{audio.shape[1]} channel(s): {audio_path}"
+        )
+
+    caller = audio[:, 0]
+
+    return caller, sr
+
+
+def load_caller_audio_bytes(wav_bytes):
+    """
+    Load judge WAV bytes and return only channel 0 (caller).
+    """
+
+    audio, sr = sf.read(
+        io.BytesIO(wav_bytes),
+        always_2d=True,
+        dtype="float32"
+    )
+
+    if sr != SAMPLE_RATE:
+        raise ValueError(
+            f"Expected {SAMPLE_RATE} Hz, got {sr} Hz"
+        )
+
+    if audio.shape[1] < 2:
+        raise ValueError(
+            f"Expected stereo audio, got "
+            f"{audio.shape[1]} channel(s)"
         )
 
     caller = audio[:, 0]
