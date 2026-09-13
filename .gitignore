@@ -1,3 +1,5 @@
 audio/
 *.zip
 .DS_Store
+venv/
+.ai/
